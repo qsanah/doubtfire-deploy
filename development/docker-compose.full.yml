@@ -1,5 +1,16 @@
 version: '3'
 services:
+  dev-db:
+    container_name: doubtfire-dev-db
+    image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: db-root-password
+      MYSQL_DATABASE: doubtfire-dev
+      MYSQL_USER: dfire
+      MYSQL_PASSWORD: pwd
+    volumes:
+      - ../data/database:/var/lib/mysql
+
   doubtfire-api:
     container_name: doubtfire-api
     image: lmsdoubtfire/doubtfire-api:development-dev
@@ -15,17 +26,6 @@ services:
     env_file:
       - api.env
       - overseer.env
-
-  dev-db:
-    container_name: doubtfire-dev-db
-    image: mariadb
-    environment:
-      MYSQL_ROOT_PASSWORD: db-root-password
-      MYSQL_DATABASE: doubtfire-dev
-      MYSQL_USER: dfire
-      MYSQL_PASSWORD: pwd
-    volumes:
-      - ../data/database:/var/lib/mysql
 
   doubtfire-web:
     container_name: doubtfire-web
